@@ -1,0 +1,40 @@
+<!-- Template hai ye -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Whatsapp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h3>All Chats!</h3>
+    <form method="get" action="/chats/new">
+        <button>New Chat</button>
+    </form>
+    <br>
+    <%  for(let chat of chats)  {%>
+        <div class="chat">
+            
+            <p> From: <i> <%= chat.from %> </i></p>  <!-- i means italic -->
+            <div class="msg">
+                <p>  <%= chat.msg %></p>
+                <form method="get" action="/chats/<%= chat.id %>/edit">
+                    <button>Edit</button>
+                </form>
+                <br>
+                <form method="post" action="/chats/<%= chat.id %>?_method=DELETE"> <!-- method to delete hoga pr name k liye post req hogi -->
+                    <button>Delete</button>
+                </form>
+
+            </div>
+            <p>Recieved by <i><%= chat.to %> </i></p>
+            <hr>
+            <p> <%= chat.created_at.toString().split(" ")[4] %></p>    <!-- Latest Time ..sirf 4th string  chahiye -->
+            <p> <%= chat.created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+
+        </div>
+        <br><br>
+    <% }  %>
+</body>
+</html>
